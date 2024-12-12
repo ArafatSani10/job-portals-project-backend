@@ -5,6 +5,7 @@ import {
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/home/home";
 import Register from "../pages/Register/Register";
+import SignIn from "../pages/signIn/SignIn";
 
 
 
@@ -21,6 +22,10 @@ import Register from "../pages/Register/Register";
         {
             path:'/register',
             element:<Register></Register>,
+        },
+        {
+          path :'/login',
+          element :<SignIn></SignIn>,
         }
       ]
     },

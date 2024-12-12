@@ -1,10 +1,26 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import AuthContext from "../../context/authContext/AuthContext";
+import logo from '../../assets/logo.png'
 
 
 const Navbar = () => {
+
+    const { user, signOutUser } = useContext(AuthContext);
+    const handleSignOut = () =>{
+        signOutUser()
+        .then(() =>{
+            console.log('succesful log out ')
+        })
+        .catch(error =>{
+            console.log('failed to sigh out  stay here  dont leave me alone ')
+        })
+    }
     const links = <>
-        <li><a>Item 1</a></li>
-        <li><a>Item 3</a></li>
+        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/'>Home</NavLink></li>
+      
     </>
     return (
         <div className="navbar bg-base-100">
@@ -30,7 +46,13 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">
+                    <img className="w-12" src={logo} alt="" />
+                    <div className="max-sm:text-[15px]">
+                    <h1>Job App<span className="text-green-400">li</span>cati<span className="text-red-500">on</span></h1>
+                    </div>
+                   
+                </a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -38,8 +60,19 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-5">
-                <Link to='/register'>Register</Link>
-                <a className="btn">Sign In</a>
+
+                {
+                    user ? <>
+                        <button onClick={handleSignOut} className="btn ">Log Out </button>
+                    
+                    </> : <>
+
+                        <Link to='/register'>Register</Link>
+                        <Link to='/login'>
+                            <button className="btn ">SignIn</button>
+                        </Link>
+                    </>
+                }
             </div>
         </div>
     );
